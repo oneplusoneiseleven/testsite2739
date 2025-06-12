@@ -1,26 +1,45 @@
-<script>
-  var testingvar = parseInt(getCookie("testingsite")) || 5;
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Counter with Cookies</title>
+</head>
+<body>
+  <p>
+    <span id="testingsite">5</span>
+  </p>
+  <button onclick="update()">
+    Click here to increase by 1!
+  </button>
+  <script>
+    // Get the cookie value or default to 5
+    var testingvar = parseInt(getCookie("testingsite")) || 5;
 
-  function update() {
-    testingvar += 1;
-    document.getElementById("testingsite").innerHTML = testingvar;
-    save("testingsite", testingvar);
-  }
-
-  function save(name, value) {
-    const expires = new Date(Date.now() + 7 * 864e5).toUTCString();
-    document.cookie = name + "=" + value + ";expires=" + expires + ";path=/";
-  }
-
-  function getCookie(name) {
-    const cookies = document.cookie.split("; ");
-    for (let c of cookies) {
-      if (c.startsWith(name + "=")) {
-        return c.substring(name.length + 1);
-      }
+    // Update the display and cookie when button is clicked
+    function update() {
+      testingvar += 1;
+      document.getElementById("testingsite").innerHTML = testingvar;
+      save("testingsite", testingvar);
     }
-    return "";
-  }
 
-  document.getElementById("testingsite").innerHTML = testingvar;
-</script>
+    // Save value in cookie
+    function save(name, value) {
+      const expires = new Date(Date.now() + 7 * 864e5).toUTCString(); // 7 days
+      document.cookie = name + "=" + value + ";expires=" + expires + ";path=/";
+    }
+
+    // Retrieve value from cookie
+    function getCookie(name) {
+      const cookies = document.cookie.split("; ");
+      for (let c of cookies) {
+        if (c.startsWith(name + "=")) {
+          return c.substring(name.length + 1);
+        }
+      }
+      return "";
+    }
+
+    // Set the initial value in the HTML
+    document.getElementById("testingsite").innerHTML = testingvar;
+  </script>
+</body>
+</html>
