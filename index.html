@@ -60,7 +60,7 @@
       Upgrades:
     </p>
     <button onclick="buyUpgrade(0)" class="colorbutton" id="unlock3_2" style="display:none;">
-      Gain 1000% More Rebirths [<span id="rebirthupgrade">16</span> Clicks]
+      Gain 1000% More Rebirths [<span id="rebirthupgradecost">16</span> Clicks]
     </button>
     <script>
       var clicks = parseInt(getCookie("clicks")) || 0;
@@ -235,7 +235,6 @@
       document.getElementById("teraclickercost").innerHTML = teraclickercost;
       document.getElementById("rebirthsavailable").innerHTML = rebirthsavailable;
       document.getElementById("rebirths").innerHTML = rebirths;
-      document.getElementById("rebirthupgradeincrease").innerHTML = rebirthupgradeincrease;
       document.getElementById("rebirthupgradecost").innerHTML = rebirthupgradecost;
 
       setInterval(function() {
