@@ -181,6 +181,9 @@
         } else if (autobuyselected === 3) {
           buyGigaClicker()
         }
+        save("clicks", clicks)
+        save("autoclickers", autoclickers)
+        save("autoclickercost", autoclickercost)
         rebirthsavailable = Math.round(15*Math.sqrt(clicks/100000));
         document.getElementById("rebirthsavailable").innerHTML = rebirthsavailable;
       }, 1000);
