@@ -184,6 +184,13 @@
         save("clicks", clicks)
         save("autoclickers", autoclickers)
         save("autoclickercost", autoclickercost)
+        save("megaclickers", megaclickers)
+        save("megaclickercost", megaclickercost)
+        save("gigaclickers", gigaclickers)
+        save("gigaclickercost", gigaclickercost)
+        save("rebirthsavailable", rebirthsavailable)
+        save("rebirths", rebirths)
+        save("autobuyselected", autobuyselected)
         rebirthsavailable = Math.round(15*Math.sqrt(clicks/100000));
         document.getElementById("rebirthsavailable").innerHTML = rebirthsavailable;
       }, 1000);
