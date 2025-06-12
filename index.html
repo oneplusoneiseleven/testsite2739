@@ -16,7 +16,8 @@
     var testingvar = 5;
 
     function update() {
-      document.getElementById("testingsite") += 1;
+      testingvar += 1
+      document.getElementById("testingsite") = testingvar;
       save(testingsite, document.getElementById("testingsite"));
     }
 
