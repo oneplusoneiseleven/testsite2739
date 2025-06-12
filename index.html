@@ -204,9 +204,10 @@
       function buyUpgrade(upgradeid) {
         if (upgradeid === 0 && clicks >= rebirthupgradecost) {
           clicks = clicks - rebirthupgradecost
-          rebirthupgradeincrease = Math.round(rebirthupgradincrease*1.1)
+          rebirthupgradeincrease = Math.round(rebirthupgradeincrease*1.1)
           rebirthupgradecost *= 2
           document.getElementById("rebirthupgradeeffect").innerHTML = (100-rebirthupgradeincrease);
+          document.getElementById("rebirthupgradecost").innerHTML = rebirthupgradecost;
         }
       }
 
@@ -236,7 +237,9 @@
       document.getElementById("teraclickercost").innerHTML = teraclickercost;
       document.getElementById("rebirthsavailable").innerHTML = rebirthsavailable;
       document.getElementById("rebirths").innerHTML = rebirths;
+      document.getElementById("autobuyselected").innerHTML = autobuyselected;
       document.getElementById("rebirthupgradecost").innerHTML = rebirthupgradecost;
+      document.getElementById("rebirthupgradeeffect").innerHTML = (100-rebirthupgradeincrease);
 
       setInterval(function() {
         clicks = clicks + (rebirths+1)*(autoclickers + (5*megaclickers) + (50*gigaclickers) + (1000*teraclickers));
@@ -262,6 +265,8 @@
         save("rebirthsavailable", rebirthsavailable)
         save("rebirths", rebirths)
         save("autobuyselected", autobuyselected)
+        save("rebirthupgradecost", rebirthupgradecost)
+        save("rebirthupgradeincrease", rebirthupgradeincrease)
         rebirthsavailable = Math.round((rebirthupgradeincrease/100)*15*Math.sqrt(clicks/100000));
         document.getElementById("rebirthsavailable").innerHTML = rebirthsavailable;
       }, 1000);
