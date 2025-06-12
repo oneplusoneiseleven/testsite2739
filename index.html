@@ -18,7 +18,7 @@
     function update() {
       testingvar += 1
       document.getElementById("testingsite") = testingvar;
-      save(testingsite, document.getElementById("testingsite"));
+      save(testingsite, document.getElementById("testingsite").innerHTML);
     }
 
     function save(name, value) {
@@ -37,7 +37,7 @@
     }
 
     testingvar = getCookie(testingvar)
-    document.getElementById("testingsite") += testingvar;
+    document.getElementById("testingsite").innerHTML = testingvar;
     
   </script>
 </body>
