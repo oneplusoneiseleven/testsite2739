@@ -56,6 +56,12 @@
     <button onclick="autoBuySetting(4)" class="colorbutton" id="unlock1_6" style="display:none;">
       Teraclickers
     </button>
+    <p id="unlock3_1" style="display:none;">
+      Upgrades:
+    </p>
+    <button onclick="buyUpgrade(0)" class="colorbutton" id="unlock3_2" style="display:none;">
+      Gain 1000% More Rebirths [<span id="rebirthupgrade">16</span> Clicks]
+    </button>
     <script>
       var clicks = parseInt(getCookie("clicks")) || 0;
       var autoclickers = parseInt(getCookie("autoclickers")) || 0;
@@ -69,6 +75,8 @@
       var rebirths = parseInt(getCookie("rebirths")) || 0;
       var rebirthsavailable = parseInt(getCookie("rebirthsavailable")) || 0;
       var autobuyselected = parseInt(getCookie("autobuyselected")) || 0;
+      var rebirthupgradeincrease = parseInt(getCookie("rebirthupgradeincrease")) || 100;
+      var rebirthupgradecost = parseInt(getCookie("rebirthupgradecost")) || 16;
 
       function buyAutoClicker() {
         if (clicks >= autoclickercost) {
@@ -157,20 +165,23 @@
         if (rebirths >= 3) {
           document.getElementById("unlock2_2").style.display = "inline";
           document.getElementById("unlock1_6").style.display = "inline";
+        } if (rebirths >= 4) {
+          document.getElementById("unlock3_1").style.display = "block";
+          document.getElementById("unlock3_2").style.display = "inline";
         }
       }
 
-      if (rebirths >= 1) {
+      if (rebirths >= 1000) {
         document.getElementById("unlock1_1").style.display = "block";
         document.getElementById("unlock1_2").style.display = "inline";
         document.getElementById("unlock1_3").style.display = "inline";
         document.getElementById("unlock1_4").style.display = "inline";
       }
-      if (rebirths >= 2) {
+      if (rebirths >= 10000) {
         document.getElementById("unlock2_1").style.display = "inline";
         document.getElementById("unlock1_5").style.display = "inline";
       }
-      if (rebirths >= 3) {
+      if (rebirths >= 100000) {
         document.getElementById("unlock2_2").style.display = "inline";
         document.getElementById("unlock1_6").style.display = "inline";
       }
@@ -190,9 +201,17 @@
         }
       }
 
+      function buyUpgrade(upgradeid) {
+        if (upgradeid === 0 && clicks >= rebirthupgradecost) {
+          clicks = clicks - rebirthupgradecost
+          rebirthupgradeincrease = math.Round(rebirthupgradecost*10)
+          rebirthupgradecost *= 2
+        }
+      }
+
       function save(name, value) {
         const expires = new Date(Date.now() + 7 * 864e5).toUTCString();
-        document.cookie = name + "=" + value + ";expires=" + expires + ";path=/testsite2739";
+        document.cookie = name + "=" + value + ";expires=" + expires + ";path=/nonaiclicker";
       }
 
       function getCookie(name) {
@@ -216,6 +235,8 @@
       document.getElementById("teraclickercost").innerHTML = teraclickercost;
       document.getElementById("rebirthsavailable").innerHTML = rebirthsavailable;
       document.getElementById("rebirths").innerHTML = rebirths;
+      document.getElementById("rebirthupgradeincrease").innerHTML = rebirthupgradeincrease;
+      document.getElementById("rebirthupgradecost").innerHTML = rebirthupgradecost;
 
       setInterval(function() {
         clicks = clicks + (rebirths+1)*(autoclickers + (5*megaclickers) + (50*gigaclickers) + (1000*teraclickers));
@@ -241,7 +262,7 @@
         save("rebirthsavailable", rebirthsavailable)
         save("rebirths", rebirths)
         save("autobuyselected", autobuyselected)
-        rebirthsavailable = Math.round(15*Math.sqrt(clicks/100000));
+        rebirthsavailable = Math.round((rebirthupgradeincrease/100)*15*Math.sqrt(clicks/100000));
         document.getElementById("rebirthsavailable").innerHTML = rebirthsavailable;
       }, 1000);
     </script>
