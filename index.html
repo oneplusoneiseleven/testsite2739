@@ -30,7 +30,7 @@
       Gigaclicker [<span id="gigaclickercost">10000</span>] -- <span id="gigaclickers">0</span>
     </button>
     <button onclick="buyTeraClicker()" class="colorbutton" id="unlock2_2" style="display:none;">
-      Gigaclicker [<span id="teraclickercost">10000</span>] -- <span id="teraclickers">0</span>
+      Teraclicker [<span id="teraclickercost">5000000</span>] -- <span id="teraclickers">0</span>
     </button>
     <p>
       Rebirths: [<span id="rebirths">0</span>]
@@ -53,7 +53,7 @@
     <button onclick="autoBuySetting(3)" class="colorbutton" id="unlock1_5" style="display:none;">
       Gigaclickers
     </button>
-    <button onclick="autoBuySetting(4)" class="colorbutton" id="unlock1_5" style="display:none;">
+    <button onclick="autoBuySetting(4)" class="colorbutton" id="unlock1_6" style="display:none;">
       Teraclickers
     </button>
     <script>
@@ -156,6 +156,7 @@
         }
         if (rebirths >= 3) {
           document.getElementById("unlock2_2").style.display = "inline";
+          document.getElementById("unlock1_6").style.display = "inline";
         }
       }
 
