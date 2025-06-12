@@ -160,6 +160,21 @@
         }
       }
 
+      if (rebirths >= 1) {
+        document.getElementById("unlock1_1").style.display = "block";
+        document.getElementById("unlock1_2").style.display = "inline";
+        document.getElementById("unlock1_3").style.display = "inline";
+        document.getElementById("unlock1_4").style.display = "inline";
+      }
+      if (rebirths >= 2) {
+        document.getElementById("unlock2_1").style.display = "inline";
+        document.getElementById("unlock1_5").style.display = "inline";
+      }
+      if (rebirths >= 3) {
+        document.getElementById("unlock2_2").style.display = "inline";
+        document.getElementById("unlock1_6").style.display = "inline";
+      }
+      
       function autoBuySetting(selected) {
         autobuyselected = selected;
         if (selected === 0) {
