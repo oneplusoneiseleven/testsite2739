@@ -204,7 +204,7 @@
       function buyUpgrade(upgradeid) {
         if (upgradeid === 0 && clicks >= rebirthupgradecost) {
           clicks = clicks - rebirthupgradecost
-          rebirthupgradeincrease = Math.Round(rebirthupgradecost*10)
+          rebirthupgradeincrease = Math.round(rebirthupgradecost*10)
           rebirthupgradecost *= 2
         }
       }
