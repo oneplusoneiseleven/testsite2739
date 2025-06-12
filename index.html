@@ -1,61 +1,43 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <title>Persistent Input with Cookie</title>
+  <title>
+    
+  </title>
 </head>
 <body>
+  <p>
+    <span id="testingsite">5</span>
+  </p>
+  <button onclick="update()">
+    Click here to increase by 1!
+  </button>
+  <script>
+    var testingvar = 5;
 
-<h2>Save Your Name</h2>
+    function update() {
+      document.getElementById("testingsite") += 1;
+      save(testingsite, document.getElementById("testingsite"));
+    }
 
-<input type="text" id="nameInput" placeholder="Enter your name">
-<button onclick="saveName()">Save</button>
+    function save(name, value) {
+      const expires = new Date(Date.now() + 7 * 864e5).toUTCString();
+      document.cookie = name + "=" + value + ";expires=" + expires + ";path=/";
+    }
 
-<p id="displayArea"></p>
-
-<script>
-  // Function to set a persistent cookie
-  function setCookie(name, value, days) {
-    const d = new Date();
-    d.setTime(d.getTime() + (days * 24 * 60 * 60 * 1000)); // days to milliseconds
-    const expires = "expires=" + d.toUTCString();
-    document.cookie = name + "=" + value + ";" + expires + ";path=/";
-  }
-
-  // Function to get a cookie by name
-  function getCookie(name) {
-    const cname = name + "=";
-    const decodedCookie = decodeURIComponent(document.cookie);
-    const ca = decodedCookie.split(';');
-    for(let i = 0; i < ca.length; i++) {
-      let c = ca[i].trim();
-      if (c.indexOf(cname) === 0) {
-        return c.substring(cname.length, c.length);
+    function getCookie(name) {
+      const cookies = document.cookie.split("; ");
+      for (let c of cookies) {
+        if (c.startsWith(name + "=")) {
+          return c.substring(name.length + 1);
+        }
       }
+      return ""
     }
-    return "";
-  }
 
-  // Save the input value to a cookie
-  function saveName() {
-    const name = document.getElementById("nameInput").value;
-    if (name) {
-      setCookie("username", name, 7); // store for 7 days
-      displaySavedName();
-    }
-  }
-
-  // Display saved name if cookie exists
-  function displaySavedName() {
-    const savedName = getCookie("username");
-    if (savedName) {
-      document.getElementById("displayArea").textContent = "Welcome back, " + savedName + "!";
-    }
-  }
-
-  // Run this on page load
-  window.onload = displaySavedName;
-</script>
-
+    testingvar = getCookie(testingvar)
+    document.getElementById("testingsite") += testingvar;
+    
+  </script>
 </body>
 </html>
