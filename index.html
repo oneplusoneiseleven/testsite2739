@@ -1,45 +1,189 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Counter with Cookies</title>
-</head>
-<body>
-  <p>
-    <span id="testingsite">5</span>
-  </p>
-  <button onclick="update()">
-    Click here to increase by 1!
-  </button>
-  <script>
-    // Get the cookie value or default to 5
-    var testingvar = parseInt(getCookie("testingsite")) || 5;
+  <style>
+    body {
+      background-color: black;
+      color: white;
+    .colorbutton {
+      background-color: midnightblue;
+      color: white;
+  </style>
+  <head>
+    <title>
+      Clicker Game 
+    </title>
+  </head>
+  <body>
+    <p>
+      Clicks:<span id="clicks">0</span>
+    </p>
+    <button onclick="addToClicks(1)" class="colorbutton">
+      Click
+    </button>
+    <button onclick="buyAutoClicker()" class="colorbutton">
+      Autoclicker [<span id="autoclickercost">15</span>] -- <span id="autoclickers">0</span>
+    </button>
+    <button onclick="buyMegaClicker()" class="colorbutton">
+      Megaclicker [<span id="megaclickercost">200</span>] -- <span id="megaclickers">0</span>
+    </button>
+    <button onclick="buyGigaClicker()" class="colorbutton" id="unlock2_1" style="display:none;">
+      Gigaclicker [<span id="gigaclickercost">10000</span>] -- <span id="gigaclickers">0</span>
+    </button>
+    <p>
+      Rebirths: [<span id="rebirths">0</span>]
+    </p>
+    <button onclick="Rebirth()" class="colorbutton">
+      Rebirths available [<span id="rebirthsavailable">0</span>]
+    </button>
+    <p id="unlock1_1" style="display:none;">
+      Autobuying: <span id="autobuyselectedtext">Off</span>
+    </p>
+    <button onclick="autoBuySetting(0)" class="colorbutton" id="unlock1_2" style="display:none;">
+      Off
+    </button>
+    <button onclick="autoBuySetting(1)" class="colorbutton" id="unlock1_3" style="display:none;">
+      Autoclickers
+    </button>
+    <button onclick="autoBuySetting(2)" class="colorbutton" id="unlock1_4" style="display:none;">
+      Megaclickers
+    </button>
+    <button onclick="autoBuySetting(3)" class="colorbutton" id="unlock1_5" style="display:none;">
+      Gigaclickers
+    </button>
+    <script>
+      var clicks = parseInt(getCookie("clicks")) || 0;
+      var autoclickers = parseInt(getCookie("autoclickers")) || 0;
+      var autoclickercost = parseInt(getCookie("autoclickercost")) || 15;
+      var megaclickers = parseInt(getCookie("megaclickers")) || 0;
+      var megaclickercost = parseInt(getCookie("megaclickercost")) || 200;
+      var gigaclickers = parseInt(getCookie("gigaclickers")) || 0;
+      var gigaclickercost = parseInt(getCookie("gigaclickercost")) || 10000;
+      var rebirths = parseInt(getCookie("rebirths")) || 0;
+      var rebirthsavailable = parseInt(getCookie("rebirthsavailable")) || 0;
+      var autobuyselected = parseInt(getCookie("autobuyselected")) || 0;
 
-    // Update the display and cookie when button is clicked
-    function update() {
-      testingvar += 1;
-      document.getElementById("testingsite").innerHTML = testingvar;
-      save("testingsite", testingvar);
-    }
-
-    // Save value in cookie
-    function save(name, value) {
-      const expires = new Date(Date.now() + 7 * 864e5).toUTCString(); // 7 days
-      document.cookie = name + "=" + value + ";expires=" + expires + ";path=/";
-    }
-
-    // Retrieve value from cookie
-    function getCookie(name) {
-      const cookies = document.cookie.split("; ");
-      for (let c of cookies) {
-        if (c.startsWith(name + "=")) {
-          return c.substring(name.length + 1);
+      function buyAutoClicker() {
+        if (clicks >= autoclickercost) {
+          clicks = clicks - autoclickercost;
+          autoclickers = autoclickers + 1;
+          autoclickercost = Math.round(autoclickercost*1.25);
+          document.getElementById("clicks").innerHTML = clicks;
+          document.getElementById("autoclickers").innerHTML = autoclickers;
+          document.getElementById("autoclickercost").innerHTML = autoclickercost;
         }
       }
-      return "";
-    }
 
-    // Set the initial value in the HTML
-    document.getElementById("testingsite").innerHTML = testingvar;
-  </script>
-</body>
+      function buyMegaClicker() {
+        if (clicks >= megaclickercost) {
+          clicks = clicks - megaclickercost;
+          megaclickers = megaclickers + 1;
+          megaclickercost = Math.round(megaclickercost*1.2);
+          document.getElementById("clicks").innerHTML = clicks;
+          document.getElementById("megaclickers").innerHTML = megaclickers;
+          document.getElementById("megaclickercost").innerHTML = megaclickercost;
+        }
+      }
+
+      function buyGigaClicker() {
+        if (clicks >= gigaclickercost) {
+          clicks = clicks - gigaclickercost;
+          gigaclickers = gigaclickers + 1;
+          gigaclickercost = Math.round(gigaclickercost*1.15);
+          document.getElementById("clicks").innerHTML = clicks;
+          document.getElementById("gigaclickers").innerHTML = gigaclickers;
+          document.getElementById("gigaclickercost").innerHTML = gigaclickercost;
+        }
+      }
+      
+      function addToClicks(amount) {
+        clicks = clicks + (rebirths+1)*amount;
+        document.getElementById("clicks").innerHTML = clicks;
+      }
+
+      function Rebirth() {
+        if (rebirthsavailable >= 1) {
+          rebirths = rebirths + rebirthsavailable;
+          clicks = 0;
+          autoclickers = 0;
+          autoclickercost = 15;
+          megaclickers = 0;
+          megaclickercost = 200;
+          gigaclickers = 0;
+          gigaclickercost = 10000;
+          rebirthsavailable = 0;
+          document.getElementById("clicks").innerHTML = clicks;
+          document.getElementById("autoclickers").innerHTML = autoclickers;
+          document.getElementById("autoclickercost").innerHTML = autoclickercost;
+          document.getElementById("megaclickers").innerHTML = megaclickers;
+          document.getElementById("megaclickercost").innerHTML = megaclickercost;
+          document.getElementById("gigaclickers").innerHTML = gigaclickers;
+          document.getElementById("gigaclickercost").innerHTML = gigaclickercost;
+          document.getElementById("rebirthsavailable").innerHTML = rebirthsavailable;
+          document.getElementById("rebirths").innerHTML = rebirths;
+        }
+        if (rebirths >= 1000) {
+          document.getElementById("unlock1_1").style.display = "block";
+          document.getElementById("unlock1_2").style.display = "inline";
+          document.getElementById("unlock1_3").style.display = "inline";
+          document.getElementById("unlock1_4").style.display = "inline";
+        }
+        if (rebirths >= 10000) {
+          document.getElementById("unlock2_1").style.display = "inline";
+          document.getElementById("unlock1_5").style.display = "inline";
+        }
+      }
+
+      function autoBuySetting(selected) {
+        autobuyselected = selected;
+        if (selected === 0) {
+          document.getElementById("autobuyselectedtext").innerHTML = "Off";
+        } else if (selected === 1) {
+          document.getElementById("autobuyselectedtext").innerHTML = "Autoclicker";
+        } else if (selected === 2) {
+          document.getElementById("autobuyselectedtext").innerHTML = "Megaclicker";
+        } else if (selected === 3) {
+          document.getElementById("autobuyselectedtext").innerHTML = "Gigaclicker";
+        }
+      }
+
+      function save(name, value) {
+        const expires = new Date(Date.now() + 7 * 864e5).toUTCString(); // 7 days
+        document.cookie = name + "=" + value + ";expires=" + expires + ";path=/testsite2739";
+      }
+
+      function getCookie(name) {
+        const cookies = document.cookie.split("; ");
+        for (let c of cookies) {
+          if (c.startsWith(name + "=")) {
+            return c.substring(name.length + 1);
+          }
+        }
+        return "";
+      }
+
+      document.getElementById("clicks").innerHTML = clicks;
+      document.getElementById("autoclickers").innerHTML = autoclickers;
+      document.getElementById("autoclickercost").innerHTML = autoclickercost;
+      document.getElementById("megaclickers").innerHTML = megaclickers;
+      document.getElementById("megaclickercost").innerHTML = megaclickercost;
+      document.getElementById("gigaclickers").innerHTML = gigaclickers;
+      document.getElementById("gigaclickercost").innerHTML = gigaclickercost;
+      document.getElementById("rebirthsavailable").innerHTML = rebirthsavailable;
+      document.getElementById("rebirths").innerHTML = rebirths;
+
+      setInterval(function() {
+        clicks = clicks + (rebirths+1)*(autoclickers + (5*megaclickers) + (50*gigaclickers));
+        document.getElementById("clicks").innerHTML = clicks;
+        if (autobuyselected === 1) {
+          buyAutoClicker()
+        } else if (autobuyselected === 2) {
+          buyMegaClicker()
+        } else if (autobuyselected === 3) {
+          buyGigaClicker()
+        }
+        rebirthsavailable = Math.round(15*Math.sqrt(clicks/100000));
+        document.getElementById("rebirthsavailable").innerHTML = rebirthsavailable;
+      }, 1000);
+    </script>
+  </body>
 </html>
