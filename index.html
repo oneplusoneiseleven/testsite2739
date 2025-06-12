@@ -206,8 +206,9 @@
           clicks = clicks - rebirthupgradecost
           rebirthupgradeincrease = Math.round(rebirthupgradeincrease*1.1)
           rebirthupgradecost *= 2
-          document.getElementById("rebirthupgradeeffect").innerHTML = (100-rebirthupgradeincrease);
+          document.getElementById("rebirthupgradeeffect").innerHTML = (rebirthupgradeincrease-100);
           document.getElementById("rebirthupgradecost").innerHTML = rebirthupgradecost;
+          document.getElementById("clicks").innerHTML = clicks;
         }
       }
 
@@ -239,7 +240,7 @@
       document.getElementById("rebirths").innerHTML = rebirths;
       document.getElementById("autobuyselected").innerHTML = autobuyselected;
       document.getElementById("rebirthupgradecost").innerHTML = rebirthupgradecost;
-      document.getElementById("rebirthupgradeeffect").innerHTML = (100-rebirthupgradeincrease);
+      document.getElementById("rebirthupgradeeffect").innerHTML = (rebirthupgradeincrease-100);
 
       setInterval(function() {
         clicks = clicks + (rebirths+1)*(autoclickers + (5*megaclickers) + (50*gigaclickers) + (1000*teraclickers));
