@@ -60,7 +60,7 @@
       Upgrades:
     </p>
     <button onclick="buyUpgrade(0)" class="colorbutton" id="unlock3_2" style="display:none;">
-      Gain 1000% More Rebirths [<span id="rebirthupgradecost">16</span> Clicks]
+      Gain 10% More Rebirths [<span id="rebirthupgradecost">16</span> Clicks] [+<span id="rebirthupgradeeffect">0</span>%]
     </button>
     <script>
       var clicks = parseInt(getCookie("clicks")) || 0;
@@ -204,8 +204,9 @@
       function buyUpgrade(upgradeid) {
         if (upgradeid === 0 && clicks >= rebirthupgradecost) {
           clicks = clicks - rebirthupgradecost
-          rebirthupgradeincrease = Math.round(rebirthupgradecost*10)
+          rebirthupgradeincrease = Math.round(rebirthupgradincrease*1.1)
           rebirthupgradecost *= 2
+          document.getElementById("rebirthupgradeeffect").innerHTML = (100-rebirthupgradeincrease);
         }
       }
 
